@@ -5,7 +5,10 @@
 <struts>
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
-        
+     <action name="" class="com.opensymphony.xwork2.ActionSupport">
+        <result type="redirect">views/Login.jsp</result>
+    </action>
+    
     </package>
     
     
@@ -13,6 +16,10 @@
     <package name="controllers" namespace="/" extends="struts-default">
         <action name="home" class="controllers.HomeController" method="execute">
             <result>views/home.jsp</result>
+        </action>
+        
+         <action name="contacto" class="controllers.ContactoControllers" method="execute">
+            <result>views/contacto.jsp</result>
         </action>
     </package>
 </struts>
