@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class PersonaC  {
    
-    String nombre;
+   String nombre;
    String apellido;
    String email;
 
