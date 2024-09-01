@@ -5,6 +5,7 @@
 package controllers.entitys;
 
 
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,9 +17,25 @@ import lombok.Setter;
 @Setter
 public class PersonaC  {
    
+   String iduser;
+   String email;
+   String password;
+   String googleId;
+   String idperfil;
    String nombre;
    String apellido;
-   String email;
+   LocalDate fechaN;
+   int edad;
+   String genero;
+   byte[] fotoPerfil;
+   byte[] fotoPortada;
+   byte[] foto1;
+   byte[] foto2;
+   byte[] foto3;
+   String ubicacion;
+   String intereses;
+   String descripcion;
+
 
     
 }

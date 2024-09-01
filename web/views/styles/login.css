@@ -50,13 +50,23 @@ input {
     border-radius: 5px;
 }
 
-button {
-    padding: 10px;
+.button {
+    background-color: #4CAF50; /* Color de fondo por defecto */
     border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
     color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.button:active {
+    background-color: #FF5733; /* Color de fondo cuando se presiona */
 }
 
 button:hover {

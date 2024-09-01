@@ -16,8 +16,7 @@ public class PersonaN {
     
     public static PersonaImp getConnection(Util util){
         switch(util) {
-            
-            case MYSQL : return new PersonaM ();
+             case MYSQL : return new PersonaM ();
             default : return  null;
         }
         

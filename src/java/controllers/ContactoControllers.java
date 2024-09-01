@@ -20,21 +20,17 @@ import lombok.Setter;
 @Setter
 public class ContactoControllers extends ActionSupport{
     
-    private Persona persona;
-    private PersonaC per;
+    
 
     public ContactoControllers() {
-        persona = new Persona();
-        per = new PersonaC();
+       
     }
 
    
 
     @Override
     public String execute() throws Exception {
-        persona.setNombre(per.getNombre());
-        persona.setApellido(per.getApellido());
-        persona.setEmail(per.getEmail());
+        
         return SUCCESS; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     

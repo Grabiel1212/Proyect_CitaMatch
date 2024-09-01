@@ -16,54 +16,67 @@ public class PersonaM implements PersonaImp {
     
     @Override
     public void create(Persona unaPersona) {
-        CallableStatement cs = null;
+     CallableStatement cs = null;
 
-        try {
-            // Asegúrate de que la conexión esté establecida
-            if (cn.getConnection() == null) {
-                cn.connect(); // Conecta si no está conectado
-            }
-
-            // Crear CallableStatement para llamar al procedimiento almacenado
-            String sql = "{call insertar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
-            cs = cn.getConnection().prepareCall(sql);
-
-            // Establecer los valores de los parámetros
-            cs.setString(1, unaPersona.getEmail());
-            cs.setString(2, unaPersona.getPassword());
-            cs.setString(3, unaPersona.getGoogleId());
-            cs.setString(4, unaPersona.getIdperfil());
-            cs.setString(5, unaPersona.getNombre());
-            cs.setString(6, unaPersona.getApellido());
-            cs.setDate(7, java.sql.Date.valueOf(unaPersona.getFechaN())); // Si fechaN es LocalDate
-            cs.setInt(8, unaPersona.getEdad());
-            cs.setString(9, unaPersona.getGenero());
-            cs.setBytes(10, unaPersona.getFotoPerfil());
-            cs.setBytes(11, unaPersona.getFotoPortada());
-            cs.setBytes(12, unaPersona.getFoto1());
-            cs.setBytes(13, unaPersona.getFoto2());
-            cs.setBytes(14, unaPersona.getFoto3());
-            cs.setString(15, unaPersona.getUbicacion());
-            cs.setString(16, unaPersona.getIntereses());
-            cs.setString(17, unaPersona.getDescripcion());
-
-            // Ejecutar el procedimiento almacenado
-            cs.execute(); // No necesitamos capturar el número de filas afectadas si no devolvemos un valor
-        } catch (SQLException e) {
-            System.err.println("Error al crear la persona: " + e.getMessage());
-        } finally {
-            // Cerrar recursos
-            try {
-                if (cs != null) {
-                    cs.close();
-                }
-                if (cn.getConnection() != null) {
-                    cn.disconnect(); // Desconectar
-                }
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar recursos: " + e.getMessage());
-            }
+    try {
+        // Asegúrate de que la conexión esté establecida
+        if (cn.getConnection() == null) {
+            cn.connect(); // Conecta si no está conectado
         }
+
+        // Crear CallableStatement para llamar al procedimiento almacenado
+        String sql = "{call insertar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        cs = cn.getConnection().prepareCall(sql);
+
+        // Establecer los valores de los parámetros
+        cs.setString(1, unaPersona.getEmail());
+        cs.setString(2, unaPersona.getPassword());
+
+        if (unaPersona.getGoogleId() == null || unaPersona.getGoogleId().isEmpty()) {
+            cs.setNull(3, java.sql.Types.VARCHAR);
+        } else {
+            cs.setString(3, unaPersona.getGoogleId());
+        }
+
+        cs.setString(4, unaPersona.getNombre());
+        cs.setString(5, unaPersona.getApellido());
+        cs.setDate(6, java.sql.Date.valueOf(unaPersona.getFechaN())); // Si fechaN es LocalDate
+
+        cs.setString(7, unaPersona.getGenero());
+
+        if (unaPersona.getFotoPerfil() == null) {
+            cs.setNull(8, java.sql.Types.BLOB);
+        } else {
+            cs.setBytes(8, unaPersona.getFotoPerfil());
+        }
+
+        if (unaPersona.getFotoPortada() == null) {
+            cs.setNull(9, java.sql.Types.BLOB);
+        } else {
+            cs.setBytes(9, unaPersona.getFotoPortada());
+        }
+
+        cs.setString(10, unaPersona.getUbicacion());
+        cs.setString(11, unaPersona.getIntereses());
+        cs.setString(12, unaPersona.getDescripcion());
+
+        // Ejecutar el procedimiento almacenado
+        cs.execute(); // No necesitamos capturar el número de filas afectadas si no devolvemos un valor
+    } catch (SQLException e) {
+        System.err.println("Error al crear la persona: " + e.getMessage());
+    } finally {
+        // Cerrar recursos
+        try {
+            if (cs != null) {
+                cs.close();
+            }
+            if (cn.getConnection() != null) {
+                cn.disconnect(); // Desconectar
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar recursos: " + e.getMessage());
+        }
+    }
     }
 
     public Persona findById(String iduser) {

@@ -4,10 +4,18 @@
  */
 package back.services;
 
+import back.entitys.Persona;
+import java.util.List;
+
 /**
  *
  * @author GRABIEL
  */
 public interface PersonaServiceImp {
+    public void grabar(Persona p);
+    public void actualizar(Persona p);
+    public void eliminar(String id);
+    public Persona buscar(String id);
+    public List<Persona> listar();
     
 }

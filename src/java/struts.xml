@@ -4,22 +4,35 @@
 
 <struts>
     <!-- Configuration for the default package. -->
+    <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
-     <action name="" class="com.opensymphony.xwork2.ActionSupport">
-        <result type="redirect">views/Login.jsp</result>
-    </action>
-    
+        <!--
+        <action name="" class="com.opensymphony.xwork2.ActionSupport" method="execute">
+            <result type="redirect">login</result> 
+        </action>
+                -->
+      
     </package>
     
-    
-      <!-- Configuration for the default package. -->
     <package name="controllers" namespace="/" extends="struts-default">
-        <action name="home" class="controllers.HomeController" method="execute">
-            <result>views/home.jsp</result>
+        
+        <action name="login" class="controllers.LoginController" method="execute">
+            <result name="success">views/home.jsp</result>
+            <result name="input">views/login.jsp</result>
+            
         </action>
         
-         <action name="contacto" class="controllers.ContactoControllers" method="execute">
+        
+        <action name="home" class="controllers.HomeController" method="execute">
+            <result name="success">views/home.jsp</result>
+         </action>
+        
+          
+        <action name="contacto" class="controllers.ContactoControllers" method="execute">
             <result>views/contacto.jsp</result>
         </action>
+        
+        
+      
     </package>
 </struts>

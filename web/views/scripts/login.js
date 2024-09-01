@@ -44,3 +44,4 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(nextId).style.display = 'block';
     }
 });
+
