@@ -10,5 +10,6 @@ package back.util;
  */
 public enum Util {
     
-  MYSQL
+  MYSQL ,
+  MYBATIS
 }

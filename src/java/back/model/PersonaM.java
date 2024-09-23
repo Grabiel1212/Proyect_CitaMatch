@@ -25,7 +25,7 @@ public class PersonaM implements PersonaImp {
         }
 
         // Crear CallableStatement para llamar al procedimiento almacenado
-        String sql = "{call insertar_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call RegistrarUsuarioConPerfil(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         cs = cn.getConnection().prepareCall(sql);
 
         // Establecer los valores de los parámetros

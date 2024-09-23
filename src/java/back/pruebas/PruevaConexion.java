@@ -4,6 +4,7 @@
  */
 package back.pruebas;
 
+import back.model.PersonaB;
 import back.util.ConectarBD;
 
 /**
@@ -15,8 +16,11 @@ public class PruevaConexion {
     public static void main(String[] args) {
         ConectarBD con = new ConectarBD();
         con.connect();
-        con.disconnect();
+        con.disconnect();}
         
-    }
+
+//  PersonaB personaB = new PersonaB();
+//        personaB.testConnection();  // Probar la conexión
+//    }
     
 }
