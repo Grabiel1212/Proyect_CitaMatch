@@ -5,6 +5,7 @@
 package back.model;
 
 import back.entitys.Persona;
+import back.entitys.Usuario;
 import back.implents.PersonaImp;
 import back.util.ConecctionMybatis;
 import java.util.List;
@@ -84,5 +85,13 @@ public class PersonaB implements PersonaImp {
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public boolean LogeoEmail(Usuario user) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+ 
+
     
 }

@@ -5,7 +5,7 @@
 package back.implents;
 
 import back.entitys.Persona;
-import back.generic.GenericDao;
+import back.entitys.Usuario;
 
 /**
  *
@@ -13,4 +13,5 @@ import back.generic.GenericDao;
  */
 public interface PersonaImp extends GenericDao<Persona,String>{
     
+    public boolean LogeoEmail(Usuario user);
 }

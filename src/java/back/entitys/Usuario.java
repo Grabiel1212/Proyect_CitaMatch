@@ -31,6 +31,15 @@ public class Usuario {
         this.googleId = googleId;
     }
 
+    
+    public Usuario(String email, String password) {
+        
+        this.email = email;
+        this.password = password;
+       
+    }
+
+
     @Override
     public String toString() {
         return "Usuario{" + "id=" + iduser + ", email=" + email + ", password=" + password + ", googleId=" + googleId + '}';

@@ -5,6 +5,7 @@
 package back.services;
 
 import back.entitys.Persona;
+import back.entitys.Usuario;
 import java.util.List;
 
 /**
@@ -17,5 +18,6 @@ public interface PersonaServiceImp {
     public void eliminar(String id);
     public Persona buscar(String id);
     public List<Persona> listar();
+    public boolean  LogeoCorreo(Usuario user);
     
 }
