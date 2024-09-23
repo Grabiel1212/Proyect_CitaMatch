@@ -4,20 +4,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/styles/registro.css">
+         <link rel="stylesheet" href="<%= request.getContextPath()%>/styles/registro.css">
+        <!-- Fuente de Google -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="styles/registro.css">
-        <title>Registro de Usuario</title>
+        <title>CitasPasion/registro</title>
     </head>
     <body>
-        <ul>
-            <li>P</li>
-            <li>A</li>
-            <li>S</li>
-            <li>I</li>
-            <li>O</li>
-            <li>N</li>
-            
-        </ul>
+      <ul>
+    <li><i class="bi bi-fire" id="fire-icon"></i></li>
+    <li>P</li>
+    <li>A</li>
+    <li>S</li>
+    <li>I</li>
+    <li>O</li>
+    <li>N</li>
+</ul>
+
+
+
         <div class="wrapper">
             <h1>Registrarse</h1>
 

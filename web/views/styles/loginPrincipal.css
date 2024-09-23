@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
+
 
 body {
     display: flex;
@@ -16,91 +17,61 @@ body {
     background-size: cover;
     background-position: center;
 }
-
-ul{
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: flex;
+.bi.bi-fire {
+    color: #FF4500 !important; /* Color de la llama */
+    font-size: 8vw; /* Tamaño responsivo */
+    animation: flame 1s infinite alternate;
+    margin-right: 10px; /* Espacio entre el icono y las letras */
+    display: flex; /* Permitir alineación */
+    align-items: center; /* Centrar verticalmente */
 }
 
-ul li{
+
+
+@keyframes flame {
+    0% {
+        transform: scale(1) translateY(0); /* Mantener en su posición original */
+        color: #FF4500;
+    }
+    50% {
+        transform: scale(1.2) translateY(0); /* Mantener en su posición original */
+        color: #FF6347; /* Cambia el color a un rojo más claro */
+    }
+    100% {
+        transform: scale(1) translateY(0); /* Mantener en su posición original */
+        color: #FF4500;
+    }
+}
+
+
+ul {
+    position: absolute;
+    top: 100px; /* Centrado verticalmente */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center; /* Alineación vertical */
+}
+
+ul li {
     list-style: none;
     font-weight: 500;
-    font-size: 12vw;
+    font-size: 12vw; /* Tamaño dinámico */
     letter-spacing: 2.5vw;
     color: #555;
     text-shadow: none;
     animation: anim 1s infinite linear; 
 }
 
-@keyframes anim{
-    0%{
+@keyframes anim {
+    0%, 18%, 30%, 70%, 100% {
         color: #555;
         text-shadow: none;
     }
-    18%{
-        color: #555;
-        text-shadow: none;
-    }
-    
-    20%{
+    20%, 35%, 85% {
         color: #ffea00;
-        text-shadow: 0 0 1vw #ffc400;
-        0 0 3vw #f44336;
+        text-shadow: 0 0 1vw #ffc400, 0 0 3vw #f44336;
     }
-    30%{
-        color: #555;
-        text-shadow: none;
-    }
-    35%{
-        color: #ffea00;
-        text-shadow: 0 0 1vw #ffc400;
-        0 0 3vw #f44336;
-    }
-    70%{
-        color: #555;
-        text-shadow: none;
-    }
-    85%{
-        color: #ffea00;
-        text-shadow: 0 0 1vw #ffc400;
-        0 0 3vw #f44336;
-    }
-    90%{
-        color: #555;
-        text-shadow: none;
-    }
-    100%{
-       color: #555;
-        text-shadow: none;
-    }
-}
-
-ul li:nth-child(1){
-    animation-delay: .2s;   
-}
-ul li:nth-child(2){
-    animation-delay: .4s;   
-}
-ul li:nth-child(3){
-    animation-delay: .6s;   
-}
-ul li:nth-child(4){
-    animation-delay: .8s;   
-}
-ul li:nth-child(5){
-    animation-delay: 1s;   
-}
-ul li:nth-child(6){
-    animation-delay: 1.2s;   
-}
-ul li:nth-child(7){
-    animation-delay: 1.4s;   
-}
-ul li:nth-child(8){
-    animation-delay: 1.6s;   
 }
 
 
@@ -112,7 +83,7 @@ ul li:nth-child(8){
     box-shadow: 0 0 10px rgb(0, 0, 0, .2);
     color: #fff;
     border-radius: 10px;
-    padding: 30px 40px;
+    padding: 20px 40px;
 }
 
 .wrapper h1 {
@@ -198,4 +169,45 @@ ul li:nth-child(8){
 
 .register-link p a:hover {
     text-decoration: underline;
+}
+
+
+.google-button {
+    background: #1877F2; /* Degradado de colores de Google */
+    color: #FBBC05; /* Color del icono */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interior */
+    font-size: 1.5em; /* Tamaño de fuente más grande */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    display: flex; /* Flex para centrar el icono */
+    align-items: center; /* Alinear verticalmente */
+    transition: transform 0.3s; /* Transición suave para el hover */
+}
+
+.google-button:hover {
+    transform: scale(1.05); /* Escala ligera al pasar el mouse */
+}
+
+
+
+
+.facebook-button {
+    background-color: #1877F2; /* Color azul de Facebook */
+    color: white; /* Color del icono */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interior */
+    font-size: 1.5em; /* Tamaño de fuente más grande */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    display: flex; /* Flex para centrar el icono */
+    align-items: center; /* Alinear verticalmente */
+    transition: background-color 0.3s;
+    position: relative;
+    left: 110px;
+    top: -55px;/* Transición suave para el hover */
+}
+
+.facebook-button:hover {
+    transform: scale(1.05); /* Color al pasar el mouse */
 }
