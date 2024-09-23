@@ -1,6 +1,7 @@
 package back.model;
 
 import back.entitys.Persona;
+import back.entitys.Usuario;
 import back.implents.PersonaImp;
 import java.util.List;
 import java.sql.*;
@@ -309,6 +310,53 @@ public class PersonaM implements PersonaImp {
     @Override
     public Persona find(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean LogeoEmail(Usuario user) {
+      
+         CallableStatement cs = null;
+         boolean exitoso = false;
+        try{
+            
+           if (cn.getConnection()==null){
+               
+               cn.connect();
+               
+           }
+           
+           String sql ="{call LoginUsuario(?,?)}" ;
+           cs = cn.getConnection().prepareCall(sql);
+           
+           cs.setString(1, user.getEmail());
+           cs.setString(2, user.getPassword());
+           
+           
+          exitoso= cs.executeQuery().next();
+          
+          if (exitoso){
+              System.out.println("Logeo exitoso");
+              exitoso = true;
+          }
+            
+           
+           
+            
+        }catch(Exception e){
+            System.out.println("Error en la capa Modelo");
+            e.printStackTrace();
+        }finally{
+             // Cerrar el CallableStatement si no es nulo
+        if (cs != null) {
+            try {
+                cs.close();
+                cn.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        }
+         return exitoso;
     }
 
 }
