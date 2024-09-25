@@ -7,7 +7,7 @@ package controllers;
 import back.entitys.Persona;
 import com.opensymphony.xwork2.ActionSupport;
 
-import controllers.entitys.PersonaC;
+
 import lombok.Getter;
 import lombok.Setter;
 
