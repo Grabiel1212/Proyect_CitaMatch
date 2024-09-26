@@ -28,6 +28,7 @@
         <s:textfield id="apellido" name="per.apellido"/>
     </s:div>
 
+    
     <s:div>
         <s:label for="email">Email</s:label>
         <s:textfield id="email" name="per.email"/>

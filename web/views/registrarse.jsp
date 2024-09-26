@@ -16,7 +16,7 @@
            
     </head>
     <body>
-        <!-- Logo y Título -->
+        <!-- Logo y Título y nas -->
         <ul>
             <li><i class="bi bi-fire" id="fire-icon"></i></li>
             <li>P</li>

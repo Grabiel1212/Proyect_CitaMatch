@@ -43,7 +43,7 @@ public class PruevaAgregadoUsuario {
         }
 
         p.setEmail("juan@gmail.com");
-        p.setPassword("1212");
+        p.setPassword("2020");
         p.setGoogleId(""); // O "" si es una cadena vacía
         p.setNombre("juaneco");
         p.setApellido("sanchez");
