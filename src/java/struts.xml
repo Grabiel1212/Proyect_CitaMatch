@@ -15,18 +15,24 @@
     
     <package name="controllers" namespace="/" extends="struts-default">
         
-       <action name="login" class="controllers.LoginController" method="execute">
-        <result name="success">views/home.jsp</result> <!-- Asegúrate de que esta vista exista -->
-        <result name="home" type="redirectAction">home</result> <!-- Redirige a 'home' -->
-        <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
-    </action>
-        
+        <action name="login" class="controllers.LoginController" method="execute">
+            <result name="success">views/home.jsp</result> <!-- Asegúrate de que esta vista exista -->
+            <result name="home" type="redirectAction">home</result> <!-- Redirige a 'home' -->
+            <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
+        </action>
+    
+        <action name="registrar" class="controllers.RegistrationController" method="Registrar">
+            <result name="success">views/login.jsp</result> <!-- Vista para éxito -->
+            <result name="error">views/PruevaRegistro.jsp</result> <!-- Volver a la página de registro en caso de error -->
+        </action>
+
+      
         
         
         
         <action name="home" class="controllers.HomeController" method="execute">
             <result name="success">views/home.jsp</result>
-         </action>
+        </action>
         
           
         <action name="contacto" class="controllers.ContactoControllers" method="execute">

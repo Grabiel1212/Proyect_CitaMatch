@@ -42,11 +42,11 @@ public class PruevaAgregadoUsuario {
             e.printStackTrace(); // Manejar la excepción de una ruta inválida
         }
 
-        p.setEmail("juan@gmail.com");
-        p.setPassword("1212");
+        p.setEmail("sandra@gmail.com");
+        p.setPassword("2020");
         p.setGoogleId(""); // O "" si es una cadena vacía
-        p.setNombre("juaneco");
-        p.setApellido("sanchez");
+        p.setNombre("sandrita");
+        p.setApellido("gomes");
         p.setFechaN(fecha);
         p.setGenero("M");
         p.setFotoPerfil(fotoPerfil);
