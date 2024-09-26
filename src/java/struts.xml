@@ -9,7 +9,7 @@
     <package name="default" extends="struts-default">
        
         <action name="" class="com.opensymphony.xwork2.ActionSupport" method="execute">
-            <result type="redirect">views/Login.jsp</result>
+            <result type="redirect">views/login.jsp</result>
         </action>
     </package>
     
