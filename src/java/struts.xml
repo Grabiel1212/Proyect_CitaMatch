@@ -9,7 +9,7 @@
     <package name="default" extends="struts-default">
        
         <action name="" class="com.opensymphony.xwork2.ActionSupport" method="execute">
-            <result type="redirect">views/login.jsp</result>
+            <result type="redirect">login</result>
         </action>
     </package>
     
@@ -18,7 +18,7 @@
        <action name="login" class="controllers.LoginController" method="execute">
         <result name="success">views/home.jsp</result> <!-- Asegúrate de que esta vista exista -->
         <result name="home" type="redirectAction">home</result> <!-- Redirige a 'home' -->
-        <result name="error" type="dispatcher">views/Login.jsp</result> <!-- Redirige a Login en caso de error -->
+        <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
     </action>
         
         
