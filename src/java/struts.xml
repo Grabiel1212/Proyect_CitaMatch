@@ -26,7 +26,9 @@
             <result name="error">views/PruevaRegistro.jsp</result> <!-- Volver a la página de registro en caso de error -->
         </action>
 
-      
+       <action name="registrar2" class="controllers.RegistrationController" method="execute">
+            <result name="success">views/registrarse.jsp</result> <!-- Vista para éxito -->
+        </action>
         
         
         
