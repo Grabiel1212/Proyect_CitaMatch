@@ -42,7 +42,6 @@ public class RegistrationController extends ActionSupport {
         return SUCCESS; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
-  
     // Método que se llama cuando se ejecuta la acción "registrar"
     public String Registrar() {
         try {
@@ -100,4 +99,28 @@ public class RegistrationController extends ActionSupport {
         }
     }
 
+    public String ValidarCorreo() {
+        dao = new Persona();
+
+        try {
+           
+            dao.setEmail(bean.getEmail());
+            
+            boolean existente = servicio.ValidarEmailExistente(dao);
+
+          
+            if (!existente) {
+//                servicio.EmailValidar(dao, "registro");
+                return "validado";
+            } else {
+            
+                System.out.println("Correo ya se encuentra registrado. Inténtalo con otro email.");
+                return INPUT; 
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "denegado";
+        }
+    }
 }

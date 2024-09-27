@@ -19,5 +19,7 @@ public interface PersonaServiceImp {
     public Persona buscar(String id);
     public List<Persona> listar();
     public boolean  LogeoCorreo(Usuario user);
+    public int EmailValidar(Usuario user ,String men);
+        public boolean ValidarEmailExistente(Usuario user);
     
 }

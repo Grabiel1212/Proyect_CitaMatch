@@ -4,9 +4,11 @@
  */
 package back.services;
 
+import back.business.EmailN;
 import back.business.PersonaN;
 import back.entitys.Persona;
 import back.entitys.Usuario;
+import back.implents.Emailimp;
 import back.implents.PersonaImp;
 import back.util.Util;
 import java.util.List;
@@ -18,10 +20,12 @@ import java.util.List;
 public class PersonaService implements PersonaServiceImp {
 
     private PersonaImp personaDao;
+    private Emailimp emailDao;
 
     public PersonaService() {
 
         personaDao = PersonaN.getConnection(Util.MYSQL);
+        emailDao = EmailN.getEmailValidar(Util.MYSQL);
 
     }
 
@@ -52,13 +56,29 @@ public class PersonaService implements PersonaServiceImp {
 
     @Override
     public boolean LogeoCorreo(Usuario user) {
-     personaDao = PersonaN.getConnection(Util.MYSQL);
+   
         // Llamar al método adecuado en la capa DAO para verificar el logeo
         boolean esLogeoExitoso = personaDao.LogeoEmail(user);
 
         // Retornar el resultado del DAO
         return esLogeoExitoso;
        
+    }
+
+    @Override
+    public int EmailValidar(Usuario user , String men) {
+        
+        
+      int cod =   emailDao.EmailValidar(user , men);
+         return cod;
+    }
+
+    @Override
+    public boolean ValidarEmailExistente(Usuario user) {
+       
+        boolean exito  = personaDao.ValidarEmailExistente(user);
+        
+        return exito;
     }
 
 }

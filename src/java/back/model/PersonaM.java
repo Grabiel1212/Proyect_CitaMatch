@@ -359,4 +359,43 @@ public class PersonaM implements PersonaImp {
          return exitoso;
     }
 
+    @Override
+    public boolean ValidarEmailExistente(Usuario user) {
+        
+        boolean validar=false;
+        
+        PreparedStatement stm=null;
+        ResultSet st;
+        
+        try{
+            
+             if (cn.getConnection()==null){
+               
+               cn.connect();
+               
+           }
+             
+             String sql = "SELECT * FROM usuarios where Email = ? ";
+             stm = cn.getConnection().prepareStatement(sql);
+             stm.setString(1,user.getEmail());
+             
+            st = stm.executeQuery();
+            
+            if(st.next()){
+                validar = true;
+                System.out.println("Correo Existente del usuario  "+ st.getString("Email"));
+            }else{  
+                System.out.println("Correo no existente");
+            }
+             
+             
+            
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
+        
+        return validar;
+        
+    }
+
 }

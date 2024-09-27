@@ -9,12 +9,12 @@
         <link rel="stylesheet" href="assets/styles/registro.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
-        <title>CitasPasion/registro</title>
-        
-        
 
-           
+        <title>CitasPasion/registro</title>
+
+
+
+
     </head>
     <body>
         <!-- Logo y Título -->
@@ -36,10 +36,10 @@
                 <s:form action="registerAction" method="post" onsubmit="event.preventDefault(); showNextSection('register-section-email', 'register-section-code');">
                     <s:label value="Correo Electrónico" cssClass="label" />
                     <s:textfield name="email" 
-                         cssClass="input" 
-                         placeholder="Ingrese su correo" 
-                         onfocus="this.placeholder = ''" 
-                         onblur="this.placeholder = 'Ingrese su correo'" />
+                                 cssClass="input" 
+                                 placeholder="Ingrese su correo" 
+                                 onfocus="this.placeholder = ''" 
+                                 onblur="this.placeholder = 'Ingrese su correo'" />
                     <s:submit value="Siguiente" cssClass="btn" />
                 </s:form>
             </div>

@@ -53,7 +53,7 @@
 
             <!-- Enlace para registrarse -->
             <div class="register-link">
-                <p>¿No tienes una cuenta? <a href="registrar2">Registrarse</a></p>
+                <p>¿No tienes una cuenta? <a href="registrate">Registrarse</a></p>
             </div>
         </div>
 

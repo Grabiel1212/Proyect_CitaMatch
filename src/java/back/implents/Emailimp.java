@@ -4,16 +4,15 @@
  */
 package back.implents;
 
-import back.entitys.Persona;
 import back.entitys.Usuario;
 
 /**
  *
- * @author GRABIEL
+ * @author juang
  */
-public interface PersonaImp extends GenericDao<Persona,String>{
+public interface Emailimp {
     
-    public boolean LogeoEmail(Usuario user);
-    public boolean ValidarEmailExistente(Usuario user);
+    public int EmailValidar(Usuario user , String men);
+    
     
 }
