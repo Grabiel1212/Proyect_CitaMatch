@@ -39,6 +39,11 @@ public class PersonaBeans {
    private String ubicacion;
    private  String intereses;
    private String descripcion;
+   
+   private int CodigoVeri;
+   private int CodigoR;
+
+
 
 
 

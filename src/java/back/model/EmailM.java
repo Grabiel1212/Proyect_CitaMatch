@@ -21,7 +21,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author juang
  */
-public class EmailM implements Emailimp{
+public class EmailM implements Emailimp {
 
     // Datos del correo remitente
     private static final String EMAIL_FROM = "citamatchpasionlove@gmail.com";
@@ -60,12 +60,13 @@ public class EmailM implements Emailimp{
      * @param emailTo Dirección del destinatario
      * @param subject Asunto del correo
      * @param content Contenido del correo
-     * @return El código de validación generado
+     * @return El código de validación generado o 0 si ocurre un error.
      */
     private int prepararCorreo(String emailTo, String subject, String content) {
         Random random = new Random();
-        int codigo = 100000 + random.nextInt(900000);  // Genera un número entre 100000 y 999999
+        int codigo = 0;
         try {
+            codigo = 100000 + random.nextInt(900000);  // Genera un número entre 100000 y 999999
             mCorreo = new MimeMessage(mSession);
             mCorreo.setFrom(new InternetAddress(EMAIL_FROM));
             mCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
@@ -73,46 +74,55 @@ public class EmailM implements Emailimp{
             mCorreo.setText(content + " " + codigo, "ISO-8859-1", "plain");  // Incluye el código en el contenido
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error preparando el correo", ex);
-            codigo = 0;  // Si hay error, el código será 0 (deberías manejarlo apropiadamente en la capa superior)
+            return 0;  // Si hay error, el código será 0
         }
         return codigo;
     }
 
     /**
      * Envía el correo previamente configurado.
+     *
+     * @return true si el correo se envió correctamente, false en caso
+     * contrario.
      */
-    private void enviarCorreo() {
+    private boolean enviarCorreo() {
         try {
             Transport mTransport = mSession.getTransport("smtp");
             mTransport.connect(EMAIL_FROM, PASSWORD_FROM);
             mTransport.sendMessage(mCorreo, mCorreo.getRecipients(Message.RecipientType.TO));
             mTransport.close();
             LOGGER.log(Level.INFO, "Correo enviado exitosamente a {0}", mCorreo.getRecipients(Message.RecipientType.TO)[0]);
+            return true;
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error enviando el correo", ex);
+            return false;
         }
     }
 
     /**
-     * Envía un correo de validación con un código al usuario.
+     * Envía un correo de validación o recuperación con un código al usuario.
      *
      * @param user Usuario al que se le enviará el correo
-     * @return El código de validación enviado
+     * @param tipo Tipo de correo ("registro" o "recuperar")
+     * @return El código de validación o recuperación enviado, o 0 si no se pudo
+     * enviar.
      */
     @Override
-    public int EmailValidar(Usuario user , String men) {
-         int cod =0; ;
-        if (men.equalsIgnoreCase("registro")){
-             cod = prepararCorreo(user.getEmail(), "Código de Validación", "Su código de Validación  es:");
-              enviarCorreo();
-        } else if (men.equalsIgnoreCase("recuperar")){
-              cod = prepararCorreo(user.getEmail(), "Código de Recuperacion", "Su código  de Recuperacion es:");
-              enviarCorreo();
+    public int EmailValidar(Usuario user, String tipo) {
+        int codigo = 0;
+
+        // Determinar el tipo de correo a enviar
+        if (tipo.equalsIgnoreCase("registro")) {
+            codigo = prepararCorreo(user.getEmail(), "Código de Validación", "Su código de validación es:");
+        } else if (tipo.equalsIgnoreCase("recuperar")) {
+            codigo = prepararCorreo(user.getEmail(), "Código de Recuperación", "Su código de recuperación es:");
         }
-        
-       
-        
-        return cod;
+
+        // Intentar enviar el correo solo si se generó un código
+        if (codigo != 0 && enviarCorreo()) {
+            return codigo;  // Retornar el código si el correo fue enviado exitosamente
+        } else {
+            return 0;  // Si hay error, retornar 0
+        }
     }
-   
 }

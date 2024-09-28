@@ -8,6 +8,7 @@ import back.entitys.Persona;
 import back.entitys.Usuario;
 import back.services.PersonaService;
 import beans.PersonaBeans;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,8 +17,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 /**
  *
@@ -25,15 +30,18 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RegistrationController extends ActionSupport {
+public class RegistrationController extends ActionSupport implements ServletResponseAware {
 
     private PersonaBeans bean;
     private PersonaService servicio;
     private Persona dao;
+    private HttpServletResponse response;
+    int codigoR;
 
     public RegistrationController() {
         bean = new PersonaBeans();
         servicio = new PersonaService();
+        this.response = response;
 
     }
 
@@ -99,28 +107,77 @@ public class RegistrationController extends ActionSupport {
         }
     }
 
-    public String ValidarCorreo() {
+    // Método para validar el correo electrónico mediante AJAX
+    public void ValidarCorreo() {
         dao = new Persona();
-
         try {
-           
             dao.setEmail(bean.getEmail());
-            
+
             boolean existente = servicio.ValidarEmailExistente(dao);
 
-          
+            // Enviar la respuesta correcta en función de si el correo está registrado
             if (!existente) {
-//                servicio.EmailValidar(dao, "registro");
-                return "validado";
-            } else {
-            
-                System.out.println("Correo ya se encuentra registrado. Inténtalo con otro email.");
-                return INPUT; 
-            }
+                int codigoResivido = servicio.EmailValidar(dao, "registro");
+                System.out.println("el codigo es : " + codigoResivido);
+                codigoR = codigoResivido;
 
+                response.getWriter().write("validado");
+
+                // Guardar el código en la sesión
+                Map<String, Object> session = ActionContext.getContext().getSession();
+                session.put("codigo_verificacion", codigoResivido);
+            } else {
+                response.getWriter().write("input");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return "denegado";
+            try {
+                response.getWriter().write("denegado");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
+
+   // Método para validar el código de verificación mediante AJAX
+public void ValidarCodigoVerificacion() {
+    try {
+        // Recuperar el código de verificación de la sesión
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        Integer codigoVerificacion = (Integer) session.get("codigo_verificacion");
+
+        // Obtener el código ingresado desde el bean
+        int codigoIngresado = bean.getCodigoVeri();
+
+        // Verificar que ambos códigos sean mayores a 0
+        if (codigoVerificacion != null && codigoVerificacion > 0 && codigoIngresado > 0) {
+            
+            if (codigoVerificacion.equals(codigoIngresado)) {
+                System.out.println("El código es: " + codigoVerificacion);
+                response.getWriter().write("correcto");
+            } else {
+                response.getWriter().write("codigo_incorrecto");
+            }
+        } else {
+           
+            response.getWriter().write("codigo_incorrecto");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        try {
+            response.getWriter().write("error");
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+}
+
+    
+
+    // Método para establecer la respuesta HTTP (implementación de ServletResponseAware)
+    @Override
+    public void setServletResponse(HttpServletResponse response) {
+        this.response = response;
+    }
+
 }

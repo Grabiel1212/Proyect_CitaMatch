@@ -5,9 +5,13 @@
 
 
  
-            // Función para mostrar la siguiente sección del formulario
-            function showNextSection(currentSectionId, nextSectionId) {
-                document.getElementById(currentSectionId).style.display = 'none';
-                document.getElementById(nextSectionId).style.display = 'block';
-            }
-        
+//            // Función para mostrar la siguiente sección del formulario
+//            function showNextSection(currentSectionId, nextSectionId) {
+//                document.getElementById(currentSectionId).style.display = 'none';
+//                document.getElementById(nextSectionId).style.display = 'block';
+//            }
+//        
+function showNextSection(currentSection, nextSection) {
+    document.getElementById(currentSection).style.display = 'none';
+    document.getElementById(nextSection).style.display = 'block';
+}

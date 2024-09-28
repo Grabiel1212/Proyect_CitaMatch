@@ -21,28 +21,27 @@
             <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
         </action>
         
-           <action name="registrate" class="controllers.RegistrationController" method="execute">
-            <result name="success">views/registrarse.jsp</result> <!-- Asegúrate de que esta vista exista -->
-            <result name="error">login</result> <!-- Redirige a 'home' -->
-           
+        <action name="registrar" class="controllers.RegistrationController" method="Registrar">
+            <result name="success">/views/login.jsp</result> <!-- Ruta al JSP que debe cargar en caso de éxito -->
+            <result name="input">/views/registrarse.jsp</result> <!-- Ruta en caso de error de validación -->
+            <result name="error">/views/registrarse.jsp</result> <!-- Ruta en caso de fallo general -->
+        </action>
+
+        <action name="ValidarCorreo" class="controllers.RegistrationController" method="ValidarCorreo">
+            <result name="validado" type="redirectAction">registrar</result>
+            <result name="input">views/registrase.jsp</result>
+            <result name="denegado">views/registrase.jsp</result>
+        </action>
+  
+        
+        <action name="ValidarCodigoVerificacion" class="controllers.RegistrationController" method="ValidarCodigoVerificacion">
+            <result name="validado" type="redirectAction">registrar</result>
+            <result name="input">views/registrase.jsp</result>
+            <result name="denegado">views/registrase.jsp</result>
         </action>
         
+        
     
-<!--                <action name="registrar" class="controllers.RegistrationController" method="Registrar">
-            <result name="success">views/login.jsp</result>  Vista para éxito 
-            <result name="error">views/registrase.jsp</result>  Volver a la página de registro en caso de error 
-        </action>-->
-        
-<!--        
-                <action name="ValidarCorreo" class="controllers.RegistrationController" method="ValidarCorreo">
-              <result name="validado" type="redirectAction">registrar</result>
-              <result name="input">views/registrase.jsp</result>
-              <result name="denegado">views/registrase.jsp</result>
-          </action>
-  -->
-        
-      
-       
     
         
         <action name="home" class="controllers.HomeController" method="execute">
@@ -56,6 +55,11 @@
         
         
         
+        
+             
+             
+             
+             
         
       
     </package>
