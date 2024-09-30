@@ -4,15 +4,49 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-.bi.bi-fire {
-    color: #FF4500 !important; /* Color de la llama */
-    font-size: 100px; /* Tamaño del icono */
-    animation: flame 1s infinite alternate;
-    margin-right: 10px; /* Espacio entre el icono y las letras */
-    display: flex; /* Permitir alineación */
-    align-items: center; /* Centrar verticalmente */
+ul {
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw; /* Asegura que la lista no exceda el ancho de la ventana */
+    overflow: hidden; /* Oculta el desbordamiento */
 }
 
+ul li {
+    list-style: none;
+    font-weight: 500;
+    font-size: 8vw; /* Cambia el tamaño según el viewport */
+    letter-spacing: 2.5vw;
+    color: #555;
+    text-shadow: none;
+    animation: anim 1s infinite linear;
+    flex: 1; /* Hacer que todos los elementos tengan el mismo tamaño */
+    text-align: center; /* Centrar el texto dentro de cada elemento */
+    display: flex; /* Usar flex para centrar íconos */
+    align-items: center; /* Centrar verticalmente el contenido */
+}
+
+.bi.bi-fire {
+    color: #FF4500 !important; /* Color base */
+    font-size: 10vw; /* Tamaño del ícono usando unidades relativas */
+    animation: flame 1s infinite alternate; /* Animación de llama */
+    margin-right: 10px; /* Espaciado a la derecha del ícono */
+}
+
+@keyframes anim {
+    0%, 18%, 30%, 70%, 90%, 100% {
+        color: #555;
+        text-shadow: none;
+    }
+    20%, 35%, 85% {
+        color: #ffea00;
+        text-shadow: 0 0 1vw #ffc400, 0 0 3vw #f44336;
+    }
+}
 
 @keyframes flame {
     0% {
@@ -21,7 +55,7 @@
     }
     50% {
         transform: scale(1.2);
-        color: #FF6347; /* Cambia el color a un rojo más claro */
+        color: #FF6347;
     }
     100% {
         transform: scale(1);
@@ -29,85 +63,6 @@
     }
 }
 
-ul{
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: flex;
-}
-
-ul li{
-    list-style: none;
-    font-weight: 500;
-    font-size: 12vw;
-    letter-spacing: 2.5vw;
-    color: #555;
-    text-shadow: none;
-    animation: anim 1s infinite linear; 
-}
-
-@keyframes anim{
-    0%{
-        color: #555;
-        text-shadow: none;
-    }
-    18%{
-        color: #555;
-        text-shadow: none;
-    }
-    
-    20%{
-        color: #ffea00;
-        text-shadow: 0 0 1vw #ffc400;
-        0 0 3vw #f44336;
-    }
-    30%{
-        color: #555;
-        text-shadow: none;
-    }
-    35%{
-        color: #ffea00;
-        text-shadow: 0 0 1vw #ffc400;
-        0 0 3vw #f44336;
-    }
-    70%{
-        color: #555;
-        text-shadow: none;
-    }
-    85%{
-        color: #ffea00;
-        text-shadow: 0 0 1vw #ffc400;
-        0 0 3vw #f44336;
-    }
-    90%{
-        color: #555;
-        text-shadow: none;
-    }
-    100%{
-       color: #555;
-        text-shadow: none;
-    }
-}
-
-ul li:nth-child(1){
-    animation-delay: .2s;   
-}
-ul li:nth-child(2){
-    animation-delay: .4s;   
-}
-ul li:nth-child(3){
-    animation-delay: .6s;   
-}
-ul li:nth-child(4){
-    animation-delay: .8s;   
-}
-ul li:nth-child(5){
-    animation-delay: 1s;   
-}
-ul li:nth-child(6){
-    animation-delay: 1.2s;   
-}
 body {
   display: flex;
   justify-content: center;
