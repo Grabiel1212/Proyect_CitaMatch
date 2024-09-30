@@ -4,31 +4,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/assets/styles/registro.css">
+        <link rel="stylesheet" href="assets/styles/registro.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <title>CitasPasion/registro</title>
+        <title>CitasPasion/registro</title>   
     </head>
     <body>
-        <ul>
-            <li><i class="bi bi-fire" id="fire-icon"></i></li>
-            <li>P</li>
-            <li>A</li>
-            <li>S</li>
-            <li>I</li>
-            <li>O</li>
-            <li>N</li>
-        </ul>
 
-        <div class="wrapper">
+        <div class="wrapper">    
             <h1>Registrarse</h1>
-
             <s:form action="registrar" method="post" enctype="multipart/form-data" id="registro-form">
 
                 <!-- Sección de Registro: Correo -->
                 <div class="input-box" id="register-section-email">
                     <s:label value="Correo Electrónico" cssClass="label" />
                     <s:textfield name="bean.email" cssClass="input" id="email-input" placeholder="Ingrese su correo" />
+                    <div id="error-message" class="error-message" style="display: none;"></div>
                     <!-- Botón con función AJAX para validar correo -->
                     <button type="button" class="btn" onclick="validarCorreo();">Siguiente</button>
                 </div>
@@ -91,61 +82,66 @@
 
         <script src="assets/scripts/registrar.js"></script>
         <script>
-            function validarCorreo() {
-                var email = document.getElementById('email-input').value;
-                if (email === '') {
-                    document.getElementById('error-message').innerHTML = 'Por favor, ingrese su correo electrónico.';
-                    document.getElementById('error-message').style.display = 'block';
-                    return;
-                }
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '${pageContext.request.contextPath}/ValidarCorreo', true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        if (xhr.responseText === 'validado') {
-                            document.getElementById('error-message').style.display = 'none';
-                            document.getElementById('register-section-email').style.display = 'none';
-                            document.getElementById('register-section-code').style.display = 'block';
-                        } else if (xhr.responseText === 'input') {
-                            document.getElementById('error-message').innerHTML = 'El correo ya está registrado. Por favor, intente con otro.';
-                            document.getElementById('error-message').style.display = 'block';
-                        } else {
-                            document.getElementById('error-message').innerHTML = 'Ocurrió un error al validar el correo.';
-                            document.getElementById('error-message').style.display = 'block';
-                        }
-                    }
-                };
-                xhr.send('bean.email=' + encodeURIComponent(email));
-            }
+                        function validarCorreo() {
+                            var email = document.getElementById('email-input').value; // Usar el id correcto
+                            var errorMessageDiv = document.getElementById('error-message');
 
-            function validarCodigo() {
-                var codigo = document.getElementById('codigo-input').value;
-                if (codigo === '') {
-                    document.getElementById('error-message').innerHTML = 'Por favor, ingrese el código de verificación.';
-                    document.getElementById('error-message').style.display = 'block';
-                    return;
-                }
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '${pageContext.request.contextPath}/ValidarCodigoVerificacion', true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        if (xhr.responseText === 'correcto') {
-                            document.getElementById('error-message').style.display = 'none';
-                            document.getElementById('register-section-code').style.display = 'none';
-                            document.getElementById('register-section-password').style.display = 'block';
-                        } else if (xhr.responseText === 'codigo_incorrecto') {
-                            document.getElementById('error-message').innerHTML = 'El código de verificación es incorrecto.';
-                            document.getElementById('error-message').style.display = 'block';
-                        } else {
-                            document.getElementById('error-message').innerHTML = 'Ocurrió un error al validar el código.';
-                            document.getElementById('error-message').style.display = 'block';
+                            if (email === '') {
+                                errorMessageDiv.innerHTML = 'Por favor, ingrese su correo electrónico.';
+                                errorMessageDiv.style.display = 'block'; // Mostrar el mensaje
+                                setTimeout(function () {
+                                    errorMessageDiv.style.display = 'none'; // Ocultar el mensaje después de 3 segundos
+                                }, 3000);
+                                return;
+                            }
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '${pageContext.request.contextPath}/ValidarCorreo', true);
+                            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    if (xhr.responseText === 'validado') {
+                                        document.getElementById('error-message').style.display = 'none';
+                                        document.getElementById('register-section-email').style.display = 'none';
+                                        document.getElementById('register-section-code').style.display = 'block';
+                                    } else if (xhr.responseText === 'input') {
+                                        document.getElementById('error-message').innerHTML = 'El correo ya está registrado. Por favor, intente con otro.';
+                                        document.getElementById('error-message').style.display = 'block';
+                                    } else {
+                                        document.getElementById('error-message').innerHTML = 'Ocurrió un error al validar el correo.';
+                                        document.getElementById('error-message').style.display = 'block';
+                                    }
+                                }
+                            };
+                            xhr.send('bean.email=' + encodeURIComponent(email));
                         }
-                    }
-                };
-                xhr.send('bean.codigoVeri=' + encodeURIComponent(codigo));
-            }
+
+                        function validarCodigo() {
+                            var codigo = document.getElementById('codigo-input').value;
+                            if (codigo === '') {
+                                document.getElementById('error-message').innerHTML = 'Por favor, ingrese el código de verificación.';
+                                document.getElementById('error-message').style.display = 'block';
+                                return;
+                            }
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '${pageContext.request.contextPath}/ValidarCodigoVerificacion', true);
+                            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    if (xhr.responseText === 'correcto') {
+                                        document.getElementById('error-message').style.display = 'none';
+                                        document.getElementById('register-section-code').style.display = 'none';
+                                        document.getElementById('register-section-password').style.display = 'block';
+                                    } else if (xhr.responseText === 'codigo_incorrecto') {
+                                        document.getElementById('error-message').innerHTML = 'El código de verificación es incorrecto.';
+                                        document.getElementById('error-message').style.display = 'block';
+                                    } else {
+                                        document.getElementById('error-message').innerHTML = 'Ocurrió un error al validar el código.';
+                                        document.getElementById('error-message').style.display = 'block';
+                                    }
+                                }
+                            };
+                            xhr.send('bean.codigoVeri=' + encodeURIComponent(codigo));
+                        }
         </script>
     </body>
 </html>
