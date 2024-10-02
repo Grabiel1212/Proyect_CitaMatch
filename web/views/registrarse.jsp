@@ -23,7 +23,6 @@
                     <!-- Botón con función AJAX para validar correo -->
                     <button type="button" class="btn" onclick="validarCorreo();">Siguiente</button>
                 </div>
-
                 <!-- Sección de Registro: Código de Verificación -->
                 <div class="input-box" style="display: none;" id="register-section-code">
                     <s:label value="Código de Verificación" cssClass="label" />
