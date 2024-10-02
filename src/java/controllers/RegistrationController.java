@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,12 +37,17 @@ public class RegistrationController extends ActionSupport implements ServletResp
     private PersonaService servicio;
     private Persona dao;
     private HttpServletResponse response;
+       private Map<String, String> generoMap; // Mapa para el género
     int codigoR;
 
     public RegistrationController() {
         bean = new PersonaBeans();
         servicio = new PersonaService();
         this.response = response;
+        
+         generoMap = new LinkedHashMap<>();
+        generoMap.put("M", "Masculino");
+        generoMap.put("F", "Femenino");
 
     }
 
@@ -49,7 +55,15 @@ public class RegistrationController extends ActionSupport implements ServletResp
     public String execute() throws Exception {
         return SUCCESS; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+ // Constructor para inicializar el mapa de género
+   
 
+    // Método para obtener el mapa de género
+    public Map<String, String> getGeneroMap() {
+        return generoMap;
+    }
+    
+     
     // Método que se llama cuando se ejecuta la acción "registrar"
     public String Registrar() {
         try {

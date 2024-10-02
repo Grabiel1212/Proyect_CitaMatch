@@ -15,3 +15,4 @@ function showNextSection(currentSection, nextSection) {
     document.getElementById(currentSection).style.display = 'none';
     document.getElementById(nextSection).style.display = 'block';
 }
+

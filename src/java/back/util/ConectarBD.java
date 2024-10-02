@@ -14,7 +14,7 @@ public class ConectarBD {
     // Contraseña de la base de datos
     
     
-    private static final String PASSWORD = "1296";
+    private static final String PASSWORD = "1212";
     
     // Conexión a la base de datos
     private Connection connection;

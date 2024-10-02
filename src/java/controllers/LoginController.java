@@ -71,17 +71,20 @@ public class LoginController extends ActionSupport{
     @Override
     public String execute() throws Exception {
        
-        try {
-            if (Validar()) {
-                return "home"; // Redirige a home si el login es exitoso
-            } else {
-                addActionError("Credenciales inválidas. Inténtalo de nuevo."); // Mensaje de error si el login falla
-                return ERROR; // Retorna error si las credenciales son inválidas
-            }
-        } catch (Exception e) {
-            addActionError("Ocurrió un error durante el inicio de sesión: " + e.getMessage()); // Mensaje de error en caso de excepción
-            return ERROR; // Retorna error
+       try {
+        // Llama al método Validar para comprobar las credenciales
+        if (Validar()) {
+            addActionMessage("¡Bienvenido! Has iniciado sesión correctamente."); // Mensaje de éxito
+            
+            return "home"; // Redirige a home si el login es exitoso
+        } else {
+            addActionError(""); // Mensaje de error si el login falla
+            return ERROR; // Retorna error si las credenciales son inválidas
         }
+    } catch (Exception e) {
+        addActionError("Ocurrió un error durante el inicio de sesión: " + e.getMessage()); // Mensaje de error en caso de excepción
+        return ERROR; // Retorna error
+    }
     }
     
     

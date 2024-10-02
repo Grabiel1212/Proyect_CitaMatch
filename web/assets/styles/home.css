@@ -1,3 +1,63 @@
-body{
-    background-color: turquoise;
+/* Estilos para el contenedor general */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilos para la tarjeta de perfil */
+.profile-card {
+    width: 350px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Estilos para la imagen del perfil */
+.image {
+    width: 100%;
+    height: 300px; /* Ajusta según el diseño que desees */
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen se recorta para ajustarse sin distorsión */
+    border-radius: 10px;
+}
+
+/* Detalles del perfil */
+.details {
+    margin-top: 15px;
+}
+
+/* Estilos para los botones de acción */
+.actions {
+    margin-top: 20px;
+}
+
+.actions button {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dislike {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.like {
+    background-color: #4CAF50;
+    color: white;
 }
