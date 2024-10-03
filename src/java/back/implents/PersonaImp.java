@@ -6,6 +6,7 @@ package back.implents;
 
 import back.entitys.Persona;
 import back.entitys.Usuario;
+import java.util.List;
 
 /**
  *
@@ -13,7 +14,8 @@ import back.entitys.Usuario;
  */
 public interface PersonaImp extends GenericDao<Persona,String>{
     
-    public boolean LogeoEmail(Usuario user);
+    public String LogeoEmail(Usuario user);
     public boolean ValidarEmailExistente(Usuario user);
+     public List<Persona> ListarPorGenero(String cod);
     
 }

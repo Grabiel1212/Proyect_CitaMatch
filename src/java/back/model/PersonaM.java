@@ -313,40 +313,49 @@ public class PersonaM implements PersonaImp {
     }
 
     @Override
-    public boolean LogeoEmail(Usuario user) {
+   public String LogeoEmail(Usuario user) {
       
-         CallableStatement cs = null;
-         boolean exitoso = false;
-        try{
-            
-           if (cn.getConnection()==null){
-               
-               cn.connect();
-               
-           }
-           
-           String sql ="{call LoginUsuario(?,?)}" ;
-           cs = cn.getConnection().prepareCall(sql);
-           
-           cs.setString(1, user.getEmail());
-           cs.setString(2, user.getPassword());
-           
-           
-          exitoso= cs.executeQuery().next();
-          
-          if (exitoso){
-              System.out.println("Logeo exitoso");
-              exitoso = true;
-          }
-            
-           
-           
-            
-        }catch(Exception e){
-            System.out.println("Error en la capa Modelo");
-            e.printStackTrace();
-        }finally{
-             // Cerrar el CallableStatement si no es nulo
+    String  exitoso=null;
+       
+    CallableStatement cs = null;
+    ResultSet rs = null;
+   
+    String idUsuario = null;
+
+    try {
+        if (cn.getConnection() == null) {
+            cn.connect();
+        }
+
+        String sql = "{call LoginUsuario(?, ?)}";
+        cs = cn.getConnection().prepareCall(sql);
+
+        cs.setString(1, user.getEmail());
+        cs.setString(2, user.getPassword());
+
+        rs = cs.executeQuery();
+
+        if (rs.next()) {
+            // Logeo exitoso, obtener idUsuario
+            idUsuario = rs.getString("UsuarioID");
+            System.out.println("Logeo exitoso. ID Usuario: " + idUsuario);
+            exitoso =rs.getString("UsuarioID");
+        } else {
+            System.out.println("Error: Credenciales incorrectas.");
+        }
+
+    } catch (Exception e) {
+        System.out.println("Error en la capa Modelo");
+        e.printStackTrace();
+    } finally {
+        // Cerrar ResultSet y CallableStatement si no son nulos
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         if (cs != null) {
             try {
                 cs.close();
@@ -355,9 +364,9 @@ public class PersonaM implements PersonaImp {
                 e.printStackTrace();
             }
         }
-        }
-         return exitoso;
     }
+    return exitoso;
+}
 
     @Override
     public boolean ValidarEmailExistente(Usuario user) {
@@ -396,6 +405,70 @@ public class PersonaM implements PersonaImp {
         
         return validar;
         
+    }
+
+    @Override
+      
+    public List<Persona> ListarPorGenero(String cod) {
+        List<Persona> lista = new ArrayList<>();
+        Connection conn = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            // Conexión a la base de datos
+            cn.connect(); // Establece la conexión
+            conn = cn.getConnection(); // Obtén la conexión
+
+            // Crear CallableStatement para ejecutar el procedimiento almacenado con el parámetro idPerfil
+            cs = conn.prepareCall("{call ListarPerfilesGenero(?)}");
+            cs.setString(1, cod); // Establece el parámetro
+
+            // Ejecutar la consulta
+            rs = cs.executeQuery();
+
+            // Procesar el ResultSet
+            while (rs.next()) {
+                lista.add(new Persona(
+                        rs.getString("UsuarioID"), // Cambiado a UsuarioID
+                        rs.getString("PerfilID"), // Cambiado a PerfilID
+                        rs.getString("Nombre"), // Corregidos nombres de columnas
+                        rs.getString("Apellido"),
+                        rs.getObject("FechaNacimiento", LocalDate.class),
+                        rs.getInt("Edad"),
+                        rs.getString("Genero"),
+                        rs.getBytes("FotoPerfil"),
+                        rs.getBytes("FotoPortada"),
+                        rs.getBytes("Foto1"),
+                        rs.getBytes("Foto2"),
+                        rs.getBytes("Foto3"),
+                        rs.getString("Ubicacion"),
+                        rs.getString("Intereses"),
+                        rs.getString("Descripcion")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error al listar personas: " + e.getMessage());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (conn != null) {
+                    cn.disconnect(); // Desconectar usando el método de desconexión
+                }
+            } catch (Exception e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        return lista;
     }
 
 }

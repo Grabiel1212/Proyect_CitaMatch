@@ -21,6 +21,8 @@
             <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
         </action>
         
+        
+        
         <action name="registrar" class="controllers.RegistrationController" method="Registrar">
             <result name="success">/views/login.jsp</result> <!-- Ruta al JSP que debe cargar en caso de éxito -->
             <result name="input">/views/registrarse.jsp</result> <!-- Ruta en caso de error de validación -->
@@ -44,10 +46,16 @@
     
     
         
-        <action name="home" class="controllers.HomeController" method="execute">
-            <result name="success">views/home.jsp</result>
+        <action name="home" class="controllers.HomeController" method="ListarPerfiles">
+            <result name="success">/views/home.jsp</result>
+            <result name="error">/views/login.jsp</result>
         </action>
         
+<!--        <action name="ListarPerfil" class="controllers.HomeController" method="ListarPerfiles">
+            <result name="success">/views/home.jsp</result>
+            <result name="error">/views/error.jsp</result>
+        </action>-->
+
           
         <action name="contacto" class="controllers.ContactoControllers" method="execute">
             <result>views/contacto.jsp</result>

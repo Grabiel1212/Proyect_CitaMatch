@@ -51,6 +51,27 @@ public class Persona  extends Usuario{
         this.descripcion = descripcion;
     }
 
+    public Persona( String iduser ,String idperfil, String nombre, String apellido, LocalDate fechaN, int edad, String genero, byte[] fotoPerfil, byte[] fotoPortada, byte[] foto1, byte[] foto2, byte[] foto3, String ubicacion, String intereses, String descripcion) {
+        super(iduser);
+        this.idperfil = idperfil;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaN = fechaN;
+        this.edad = edad;
+        this.genero = genero;
+        this.fotoPerfil = fotoPerfil;
+        this.fotoPortada = fotoPortada;
+        this.foto1 = foto1;
+        this.foto2 = foto2;
+        this.foto3 = foto3;
+        this.ubicacion = ubicacion;
+        this.intereses = intereses;
+        this.descripcion = descripcion;
+    }
+
+    
+    
+    
     @Override
     public String toString() {
         return "Persona{" + "idperfil=" + idperfil + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaN=" + fechaN + ", edad=" + edad + ", genero=" + genero + ", fotoPerfil=" + fotoPerfil + ", fotoPortada=" + fotoPortada + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + ", ubicacion=" + ubicacion + ", intereses=" + intereses + ", descripcion=" + descripcion + '}';

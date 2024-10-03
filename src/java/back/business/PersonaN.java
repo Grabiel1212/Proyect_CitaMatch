@@ -5,7 +5,7 @@
 package back.business;
 
 import back.implents.PersonaImp;
-import back.model.PersonaB;
+
 import back.model.PersonaM;
 import back.util.Util;
 
@@ -18,7 +18,7 @@ public class PersonaN {
     public static PersonaImp getConnection(Util util){
         switch(util) {
              case MYSQL : return new PersonaM ();
-             case MYBATIS : return new PersonaB ();
+           
             default : return  null;
         }
         

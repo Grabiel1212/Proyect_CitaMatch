@@ -1,159 +1,140 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.Base64"%>
+<%@page import="back.entitys.Persona"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="assets/styles/home.css"/>
-        <title>Perfiles - CitaMatch</title>
-    </head>
-    <body>
-        <div class="shadow">
-            <main>
-                <section>
-                    <div class="white-bkg"></div>
-                    <header>
-                        <img src="assets/styles/tinder-logo.jpg" alt="Tinder Logo" />
-                    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/home.css"/>
+    <title>Perfiles - CitaMatch</title>
+</head>
+<body>
+    <div class="shadow">
+        <main>
+            <section>
+                <div class="white-bkg"></div>
+                <header>
+                    <img src="${pageContext.request.contextPath}/assets/styles/tinder-logo.jpg" alt="Tinder Logo" />
+                </header>
 
-                    <div class="cards">
-                        <article>
-                            <img src="assets/styles/2.jpg" alt="Álex, brown hair man, 25 years old" />
-                            <h2>Álex <span>25</span></h2>
+                <div class="cards" id="cards-container">
+                    <template id="profile-template">
+                        <article class="profile-card">
+                            <img src="" alt="Imagen de perfil" class="profile-img" />
+                            <h2 class="profile-name">Nombre, Edad años</h2>
                             <div class="choice nope">NOPE</div>
                             <div class="choice like">LIKE</div>
                         </article>
+                    </template>
+                </div>
 
-                        <article>
-                            <img src="assets/styles/1.jpg" alt="Leila, redhead, 25 years old" />
-                            <h2>Leila <span>27</span></h2>
-                            <div class="choice nope">NOPE</div>
-                            <div class="choice like">LIKE</div>
-                        </article>
+                <footer>
+                    <button class="is-undo" aria-label="undo"></button>
+                    <button class="is-remove is-big" aria-label="remove" onclick="handleNope()"></button>
+                    <button class="is-star" aria-label="star"></button>
+                    <button class="is-fav is-big" aria-label="fav" onclick="handleLike()"></button>
+                    <button class="is-zap" aria-label="zap"></button>
+                </footer>
+            </section>
+        </main>
+    </div>
 
-                        <span>
-                            No hay más personas cerca de ti...<br />
-                            Vuelve a intentarlo más tarde
-                        </span>
-                    </div>
-
-                    <footer>
-                        <button class="is-undo" aria-label="undo"></button>
-                        <button class="is-remove is-big" aria-label="remove"></button>
-                        <button class="is-star" aria-label="star"></button>
-                        <button class="is-fav is-big" aria-label="fav"></button>
-                        <button class="is-zap" aria-label="zap"></button>
-
-                    </footer>
-                </section>
-            </main>
-        </div>
-        <script>
-            const DECISION_THRESHOLD = 75
-
-            let isAnimating = false
-            let pullDeltaX = 0 // distance from the card being dragged
-
-            function startDrag(event) {
-                if (isAnimating)
-                    return
-
-                // get the first article element
-                const actualCard = event.target.closest('article')
-                if (!actualCard)
-                    return
-
-                // get initial position of mouse or finger
-                const startX = event.pageX ?? event.touches[0].pageX
-
-                // listen the mouse and touch movements
-                document.addEventListener('mousemove', onMove)
-                document.addEventListener('mouseup', onEnd)
-
-                document.addEventListener('touchmove', onMove, {passive: true})
-                document.addEventListener('touchend', onEnd, {passive: true})
-
-                function onMove(event) {
-                    // current position of mouse or finger
-                    const currentX = event.pageX ?? event.touches[0].pageX
-
-                    // the distance between the initial and current position
-                    pullDeltaX = currentX - startX
-
-                    // there is no distance traveled in X axis
-                    if (pullDeltaX === 0)
-                        return
-
-                    // change the flag to indicate we are animating
-                    isAnimating = true
-
-                    // calculate the rotation of the card using the distance
-                    const deg = pullDeltaX / 14
-
-                    // apply the transformation to the card
-                    actualCard.style.transform = `translateX(${pullDeltaX}px) rotate(${deg}deg)`
-
-                    // change the cursor to grabbing
-                    actualCard.style.cursor = 'grabbing'
-
-                    // change opacity of the choice info
-                    const opacity = Math.abs(pullDeltaX) / 100
-                    const isRight = pullDeltaX > 0
-
-                    const choiceEl = isRight
-                            ? actualCard.querySelector('.choice.like')
-                            : actualCard.querySelector('.choice.nope')
-
-                    choiceEl.style.opacity = opacity
-                }
-
-                function onEnd(event) {
-                    // remove the event listeners
-                    document.removeEventListener('mousemove', onMove)
-                    document.removeEventListener('mouseup', onEnd)
-
-                    document.removeEventListener('touchmove', onMove)
-                    document.removeEventListener('touchend', onEnd)
-
-                    // saber si el usuario tomo una decisión
-                    const decisionMade = Math.abs(pullDeltaX) >= DECISION_THRESHOLD
-
-                    if (decisionMade) {
-                        const goRight = pullDeltaX >= 0
-
-                        // add class according to the decision
-                        actualCard.classList.add(goRight ? 'go-right' : 'go-left')
-                        actualCard.addEventListener('transitionend', () => {
-                            actualCard.remove()
-                        })
+    <script>
+        const profiles = [
+        <%
+            List<Persona> perfiles = (List<Persona>) session.getAttribute("perfiles");
+            if (perfiles != null && !perfiles.isEmpty()) {
+                for (int i = 0; i < perfiles.size(); i++) {
+                    Persona perfil = perfiles.get(i);
+                    String nombre = perfil.getNombre();
+                    int edad = perfil.getEdad();
+                    String imagePath;
+                    if (perfil.getFotoPerfil() != null) {
+                        imagePath = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(perfil.getFotoPerfil());
                     } else {
-                        actualCard.classList.add('reset')
-                        actualCard.classList.remove('go-right', 'go-left')
-
-                        actualCard.querySelectorAll('.choice').forEach(choice => {
-                            choice.style.opacity = 0
-                        })
+                        imagePath = request.getContextPath() + "/assets/img/9.jpg";
                     }
-
-                    // reset the variables
-                    actualCard.addEventListener('transitionend', () => {
-                        actualCard.removeAttribute('style')
-                        actualCard.classList.remove('reset')
-
-                        pullDeltaX = 0
-                        isAnimating = false
-                    })
-
-                    // reset the choice info opacity
-                    actualCard
-                            .querySelectorAll(".choice")
-                            .forEach((el) => (el.style.opacity = 0));
+        %>
+        {
+            name: "<%= nombre %>",
+            age: <%= edad %>,
+            img: "<%= imagePath %>"
+        }<%= (i < perfiles.size() - 1) ? "," : "" %>
+        <%
                 }
+            } else {
+        %>
+        {
+            name: "No hay perfiles disponibles",
+            age: 0,
+            img: "<%= request.getContextPath() %>/assets/images/default.jpg"
+        }
+        <% } %>
+        ];
+        console.log(profiles);
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        function loadProfile() {
+            const cardsContainer = document.getElementById('cards-container');
+            const template = document.getElementById('profile-template').content;
+            if (currentIndex >= profiles.length) {
+                cardsContainer.innerHTML = '<span>No hay más personas cerca de ti...<br />Vuelve a intentarlo más tarde</span>';
+                return;
             }
 
-            document.addEventListener('mousedown', startDrag)
-            document.addEventListener('touchstart', startDrag, {passive: true})
-        </script>
-    </body>
+            const profile = profiles[currentIndex];
+            console.log("Cargando perfil:", profile); // Verifica que los datos estén correctos en la consola
+
+            // Clonar la plantilla
+            const clone = template.cloneNode(true);
+
+            // Asignar nombre
+            const profileName = clone.querySelector('.profile-name');
+            profileName.textContent = profile.name; // Esta línea funciona correctamente
+
+            // Añadir la edad al nombre
+           profileName.textContent = profile.name + ', ' + profile.age + ' años';
+
+
+            console.log("Nombre y edad asignados:", profile.name, "EDAD:", profile.age); // Verifica que se asignen correctamente
+            // Asignar datos del perfil a la plantilla clonada
+            clone.querySelector('.profile-img').src = profile.img;
+
+            // Agregar la tarjeta clonada al contenedor
+            cardsContainer.appendChild(clone);
+            currentIndex++; // Aumentar el índice para cargar el siguiente perfil
+        }
+
+        function handleLike() {
+            const actualCard = document.querySelector('article');
+            if (!actualCard || isAnimating) return;
+            isAnimating = true;
+            slideCard(actualCard, true);
+        }
+
+        function handleNope() {
+            const actualCard = document.querySelector('article');
+            if (!actualCard || isAnimating) return;
+            isAnimating = true;
+            slideCard(actualCard, false);
+        }
+
+        function slideCard(card, goRight) {
+            const pullDeltaX = goRight ? 100 : -100;
+            card.style.transform = `translateX(${pullDeltaX}px)`;
+            card.classList.add(goRight ? 'go-right' : 'go-left');
+            card.addEventListener('transitionend', () => {
+                card.remove();
+                isAnimating = false;
+                loadProfile(); // Cargar el siguiente perfil al finalizar la animación
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
 </html>

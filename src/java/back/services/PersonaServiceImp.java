@@ -18,8 +18,9 @@ public interface PersonaServiceImp {
     public void eliminar(String id);
     public Persona buscar(String id);
     public List<Persona> listar();
-    public boolean  LogeoCorreo(Usuario user);
+    public String LogeoCorreo(Usuario user);
     public int EmailValidar(Usuario user ,String men);
         public boolean ValidarEmailExistente(Usuario user);
+        public List<Persona> ListarPorGenero(String cod);
     
 }

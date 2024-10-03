@@ -55,10 +55,10 @@ public class PersonaService implements PersonaServiceImp {
     }
 
     @Override
-    public boolean LogeoCorreo(Usuario user) {
+    public String LogeoCorreo(Usuario user) {
    
         // Llamar al método adecuado en la capa DAO para verificar el logeo
-        boolean esLogeoExitoso = personaDao.LogeoEmail(user);
+        String esLogeoExitoso = personaDao.LogeoEmail(user);
 
         // Retornar el resultado del DAO
         return esLogeoExitoso;
@@ -79,6 +79,15 @@ public class PersonaService implements PersonaServiceImp {
         boolean exito  = personaDao.ValidarEmailExistente(user);
         
         return exito;
+    }
+
+    @Override
+    public List<Persona> ListarPorGenero(String cod) {
+     
+    
+        return personaDao.ListarPorGenero(cod);
+    
+
     }
 
 }

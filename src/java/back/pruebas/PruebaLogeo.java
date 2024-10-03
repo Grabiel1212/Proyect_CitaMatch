@@ -4,6 +4,7 @@
  */
 package back.pruebas;
 
+import back.entitys.Persona;
 import back.entitys.Usuario;
 import back.services.PersonaService;
 
@@ -15,16 +16,29 @@ public class PruebaLogeo {
     
     public static void main(String[] args) {
          
-        Usuario user  = new Usuario("juan@gmail.com","1212");
-        
-       PersonaService  dao = new PersonaService();
+         Usuario user  = new Usuario("luis.martinez@gmail.com","luis1988");
+        Persona per = new Persona();
        
-       boolean exito = dao.LogeoCorreo(user);
-       if (exito){
-           System.out.println("logeo exitos bienvenido ");
-       }else{
-           System.out.println("eror de usurio p correo");
-       }
+        PersonaService dao = new PersonaService();
+       
+        String cod = ""; // Inicializamos cod con null
+       String  exito = dao.LogeoCorreo(user);
+        if (!exito.isEmpty()){
+            System.out.println("Logeo exitoso, bienvenido " + exito);
+            per.setIduser(user.getIduser());
+            dao.ListarPorGenero(exito).forEach(System.out::println);
+            
+        } else {
+            System.out.println("Error de usuario o correo");
+        }
+       
+        
+//        // Verificamos si cod no es null antes de compararlo
+//        if (cod != null && !cod.isEmpty()) {
+//            dao.ListarPorGenero(cod).forEach(System.out::println);
+//        } else {
+//            System.out.println("Código vacío o null: " + cod);
+//        }
     }
     
 }

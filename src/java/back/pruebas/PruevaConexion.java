@@ -4,7 +4,7 @@
  */
 package back.pruebas;
 
-import back.model.PersonaB;
+
 import back.util.ConectarBD;
 
 /**

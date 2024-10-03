@@ -39,6 +39,10 @@ public class Usuario {
        
     }
 
+    public Usuario(String iduser) {
+        this.iduser = iduser;
+    }
+
 
     @Override
     public String toString() {
