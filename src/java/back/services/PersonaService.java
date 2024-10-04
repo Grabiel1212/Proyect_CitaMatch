@@ -5,10 +5,12 @@
 package back.services;
 
 import back.business.EmailN;
+import back.business.MegustaN;
 import back.business.PersonaN;
 import back.entitys.Persona;
 import back.entitys.Usuario;
 import back.implents.Emailimp;
+import back.implents.MegustaImpl;
 import back.implents.PersonaImp;
 import back.util.Util;
 import java.util.List;
@@ -21,11 +23,16 @@ public class PersonaService implements PersonaServiceImp {
 
     private PersonaImp personaDao;
     private Emailimp emailDao;
+    private MegustaImpl megustadao;
+    
+  
 
     public PersonaService() {
 
         personaDao = PersonaN.getConnection(Util.MYSQL);
         emailDao = EmailN.getEmailValidar(Util.MYSQL);
+        megustadao = MegustaN.getMegusta(Util.MYSQL);
+      
 
     }
 
@@ -88,6 +95,33 @@ public class PersonaService implements PersonaServiceImp {
         return personaDao.ListarPorGenero(cod);
     
 
+    }
+
+    @Override
+    public Persona InformacionUsuario(String cod) {
+       return personaDao.InformacionUsuario(cod);
+    }
+
+    
+    
+    @Override
+    public void DarMegusta(String codSoli, String codResep) {
+        megustadao.DarMegusta(codSoli, codResep);
+    }
+
+    @Override
+    public void CanselarMegusta(String codSoli, String codResep) {
+      megustadao.CanselarMegusta(codSoli, codResep);
+    }
+
+    @Override
+    public void AseptarMegusta(String codSoli, String codResep) {
+       megustadao.AseptarMegusta(codSoli, codResep);
+    }
+
+    @Override
+    public void RechazarMegusta(String codSoli, String codResep) {
+      megustadao.RechazarMegusta(codSoli, codResep);
     }
 
 }

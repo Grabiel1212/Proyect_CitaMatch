@@ -13,14 +13,34 @@ import java.util.List;
  * @author GRABIEL
  */
 public interface PersonaServiceImp {
+
     public void grabar(Persona p);
+
     public void actualizar(Persona p);
+
     public void eliminar(String id);
+
     public Persona buscar(String id);
+
     public List<Persona> listar();
+
     public String LogeoCorreo(Usuario user);
-    public int EmailValidar(Usuario user ,String men);
-        public boolean ValidarEmailExistente(Usuario user);
-        public List<Persona> ListarPorGenero(String cod);
+
+    public int EmailValidar(Usuario user, String men);
+
+    public boolean ValidarEmailExistente(Usuario user);
+
+    public List<Persona> ListarPorGenero(String cod);
+
+    public Persona InformacionUsuario(String cod);
     
+     public void DarMegusta(String codSoli, String codResep);
+
+    public void CanselarMegusta(String codSoli, String codResep);
+
+   
+    public void AseptarMegusta(String codSoli, String codResep);
+
+    public void RechazarMegusta(String codSoli, String codResep);
+
 }

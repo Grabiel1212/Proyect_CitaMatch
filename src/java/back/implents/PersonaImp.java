@@ -16,6 +16,7 @@ public interface PersonaImp extends GenericDao<Persona,String>{
     
     public String LogeoEmail(Usuario user);
     public boolean ValidarEmailExistente(Usuario user);
-     public List<Persona> ListarPorGenero(String cod);
+    public List<Persona> ListarPorGenero(String cod);
+    public Persona  InformacionUsuario(String cod);
     
 }

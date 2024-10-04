@@ -13,71 +13,69 @@ public class PersonaM implements PersonaImp {
 
     ConectarBD cn = new ConectarBD();
 
-    
-    
     @Override
     public void create(Persona unaPersona) {
-     CallableStatement cs = null;
+        CallableStatement cs = null;
 
-    try {
-        // Asegúrate de que la conexión esté establecida
-        if (cn.getConnection() == null) {
-            cn.connect(); // Conecta si no está conectado
-        }
-
-        // Crear CallableStatement para llamar al procedimiento almacenado
-        String sql = "{call RegistrarUsuarioConPerfil(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
-        cs = cn.getConnection().prepareCall(sql);
-
-        // Establecer los valores de los parámetros
-        cs.setString(1, unaPersona.getEmail());
-        cs.setString(2, unaPersona.getPassword());
-
-        if (unaPersona.getGoogleId() == null || unaPersona.getGoogleId().isEmpty()) {
-            cs.setNull(3, java.sql.Types.VARCHAR);
-        } else {
-            cs.setString(3, unaPersona.getGoogleId());
-        }
-
-        cs.setString(4, unaPersona.getNombre());
-        cs.setString(5, unaPersona.getApellido());
-        cs.setDate(6, java.sql.Date.valueOf(unaPersona.getFechaN())); // Si fechaN es LocalDate
-
-        cs.setString(7, unaPersona.getGenero());
-
-        if (unaPersona.getFotoPerfil() == null) {
-            cs.setNull(8, java.sql.Types.BLOB);
-        } else {
-            cs.setBytes(8, unaPersona.getFotoPerfil());
-        }
-
-        if (unaPersona.getFotoPortada() == null) {
-            cs.setNull(9, java.sql.Types.BLOB);
-        } else {
-            cs.setBytes(9, unaPersona.getFotoPortada());
-        }
-
-        cs.setString(10, unaPersona.getUbicacion());
-        cs.setString(11, unaPersona.getIntereses());
-        cs.setString(12, unaPersona.getDescripcion());
-
-        // Ejecutar el procedimiento almacenado
-        cs.execute(); // No necesitamos capturar el número de filas afectadas si no devolvemos un valor
-    } catch (SQLException e) {
-        System.err.println("Error al crear la persona: " + e.getMessage());
-    } finally {
-        // Cerrar recursos
         try {
-            if (cs != null) {
-                cs.close();
+            // Asegúrate de que la conexión esté establecida
+            if (cn.getConnection() == null) {
+                cn.connect(); // Conecta si no está conectado
             }
-            if (cn.getConnection() != null) {
-                cn.disconnect(); // Desconectar
+
+            // Crear CallableStatement para llamar al procedimiento almacenado
+            String sql = "{call RegistrarUsuarioConPerfil(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            cs = cn.getConnection().prepareCall(sql);
+
+            // Establecer los valores de los parámetros
+            cs.setString(1, unaPersona.getEmail());
+            cs.setString(2, unaPersona.getPassword());
+
+            if (unaPersona.getGoogleId() == null || unaPersona.getGoogleId().isEmpty()) {
+                cs.setNull(3, java.sql.Types.VARCHAR);
+            } else {
+                cs.setString(3, unaPersona.getGoogleId());
             }
+
+            cs.setString(4, unaPersona.getNombre());
+            cs.setString(5, unaPersona.getApellido());
+            cs.setDate(6, java.sql.Date.valueOf(unaPersona.getFechaN())); // Si fechaN es LocalDate
+
+            cs.setString(7, unaPersona.getGenero());
+
+            if (unaPersona.getFotoPerfil() == null) {
+                cs.setNull(8, java.sql.Types.BLOB);
+            } else {
+                cs.setBytes(8, unaPersona.getFotoPerfil());
+            }
+
+            if (unaPersona.getFotoPortada() == null) {
+                cs.setNull(9, java.sql.Types.BLOB);
+            } else {
+                cs.setBytes(9, unaPersona.getFotoPortada());
+            }
+
+            cs.setString(10, unaPersona.getUbicacion());
+            cs.setString(11, unaPersona.getIntereses());
+            cs.setString(12, unaPersona.getDescripcion());
+
+            // Ejecutar el procedimiento almacenado
+            cs.execute(); // No necesitamos capturar el número de filas afectadas si no devolvemos un valor
         } catch (SQLException e) {
-            System.err.println("Error al cerrar recursos: " + e.getMessage());
+            System.err.println("Error al crear la persona: " + e.getMessage());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+                if (cn.getConnection() != null) {
+                    cn.disconnect(); // Desconectar
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar recursos: " + e.getMessage());
+            }
         }
-    }
     }
 
     public Persona findById(String iduser) {
@@ -145,9 +143,6 @@ public class PersonaM implements PersonaImp {
 
         return oPersona;
     }
-    
-
-
 
     @Override
     public List<Persona> findAll() {
@@ -214,7 +209,6 @@ public class PersonaM implements PersonaImp {
         return lista;
     }
 
-    
     @Override
     public void update(Persona unaPersona) {
         CallableStatement cs = null;
@@ -268,9 +262,6 @@ public class PersonaM implements PersonaImp {
         }
     }
 
-
-
-
     @Override
     public void delete(String iduser) {
         CallableStatement cs = null;
@@ -313,102 +304,100 @@ public class PersonaM implements PersonaImp {
     }
 
     @Override
-   public String LogeoEmail(Usuario user) {
-      
-    String  exitoso=null;
-       
-    CallableStatement cs = null;
-    ResultSet rs = null;
-   
-    String idUsuario = null;
+    public String LogeoEmail(Usuario user) {
 
-    try {
-        if (cn.getConnection() == null) {
-            cn.connect();
-        }
+        String exitoso = null;
 
-        String sql = "{call LoginUsuario(?, ?)}";
-        cs = cn.getConnection().prepareCall(sql);
+        CallableStatement cs = null;
+        ResultSet rs = null;
 
-        cs.setString(1, user.getEmail());
-        cs.setString(2, user.getPassword());
+        String idUsuario = null;
 
-        rs = cs.executeQuery();
+        try {
+            if (cn.getConnection() == null) {
+                cn.connect();
+            }
 
-        if (rs.next()) {
-            // Logeo exitoso, obtener idUsuario
-            idUsuario = rs.getString("UsuarioID");
-            System.out.println("Logeo exitoso. ID Usuario: " + idUsuario);
-            exitoso =rs.getString("UsuarioID");
-        } else {
-            System.out.println("Error: Credenciales incorrectas.");
-        }
+            String sql = "{call LoginUsuario(?, ?)}";
+            cs = cn.getConnection().prepareCall(sql);
 
-    } catch (Exception e) {
-        System.out.println("Error en la capa Modelo");
-        e.printStackTrace();
-    } finally {
-        // Cerrar ResultSet y CallableStatement si no son nulos
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            cs.setString(1, user.getEmail());
+            cs.setString(2, user.getPassword());
+
+            rs = cs.executeQuery();
+
+            if (rs.next()) {
+                // Logeo exitoso, obtener idUsuario
+                idUsuario = rs.getString("UsuarioID");
+                System.out.println("Logeo exitoso. ID Usuario: " + idUsuario);
+                exitoso = rs.getString("UsuarioID");
+            } else {
+                System.out.println("Error: Credenciales incorrectas.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error en la capa Modelo");
+            e.printStackTrace();
+        } finally {
+            // Cerrar ResultSet y CallableStatement si no son nulos
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (cs != null) {
+                try {
+                    cs.close();
+                    cn.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
-        if (cs != null) {
-            try {
-                cs.close();
-                cn.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        return exitoso;
     }
-    return exitoso;
-}
 
     @Override
     public boolean ValidarEmailExistente(Usuario user) {
-        
-        boolean validar=false;
-        
-        PreparedStatement stm=null;
+
+        boolean validar = false;
+
+        PreparedStatement stm = null;
         ResultSet st;
-        
-        try{
-            
-             if (cn.getConnection()==null){
-               
-               cn.connect();
-               
-           }
-             
-             String sql = "SELECT * FROM usuarios where Email = ? ";
-             stm = cn.getConnection().prepareStatement(sql);
-             stm.setString(1,user.getEmail());
-             
+
+        try {
+
+            if (cn.getConnection() == null) {
+
+                cn.connect();
+
+            }
+
+            String sql = "SELECT * FROM usuarios where Email = ? ";
+            stm = cn.getConnection().prepareStatement(sql);
+            stm.setString(1, user.getEmail());
+
             st = stm.executeQuery();
-            
-            if(st.next()){
+
+            if (st.next()) {
                 validar = true;
-                System.out.println("Correo Existente del usuario  "+ st.getString("Email"));
-            }else{  
+                System.out.println("Correo Existente del usuario  " + st.getString("Email"));
+            } else {
                 System.out.println("Correo no existente");
             }
-             
-             
-            
-        }catch(Exception e ){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return validar;
-        
+
     }
 
     @Override
-      
+
     public List<Persona> ListarPorGenero(String cod) {
         List<Persona> lista = new ArrayList<>();
         Connection conn = null;
@@ -469,6 +458,52 @@ public class PersonaM implements PersonaImp {
             }
         }
         return lista;
+    }
+
+    @Override
+    public Persona InformacionUsuario(String usuarioID) {
+        Persona persona = null; // Inicializa persona como null
+
+        try {
+            // Asegúrate de que la conexión esté activa.
+            if (cn.getConnection() == null) {
+                cn.connect();
+            }
+
+            String sql = "SELECT * FROM Perfiles WHERE UsuarioID = ?";
+            PreparedStatement preparedStatement = cn.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, usuarioID); // Usa el parámetro correcto
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Verifica si hay resultados en el conjunto de resultados
+            if (resultSet.next()) {
+                String iduser = resultSet.getString("UsuarioID");
+                String idperfil = resultSet.getString("PerfilID");
+                String nombre = resultSet.getString("Nombre");
+                String apellido = resultSet.getString("Apellido");
+                LocalDate fechaN = resultSet.getDate("FechaNacimiento").toLocalDate();
+                int edad = resultSet.getInt("Edad");
+                String genero = resultSet.getString("Genero");
+                byte[] fotoPerfil = resultSet.getBytes("FotoPerfil");
+                byte[] fotoPortada = resultSet.getBytes("FotoPortada");
+                byte[] foto1 = resultSet.getBytes("Foto1");
+                byte[] foto2 = resultSet.getBytes("Foto2");
+                byte[] foto3 = resultSet.getBytes("Foto3");
+                String ubicacion = resultSet.getString("Ubicacion");
+                String intereses = resultSet.getString("Intereses");
+                String descripcion = resultSet.getString("Descripcion");
+
+                // Crea un nuevo objeto Usuario (o Persona) con los datos obtenidos
+                persona = new Persona(iduser, idperfil, nombre, apellido, fechaN, edad, genero, fotoPerfil, fotoPortada, foto1, foto2, foto3, ubicacion, intereses, descripcion);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Asegúrate de manejar la excepción de manera adecuada
+        } finally {
+            cn.disconnect();
+        }
+
+        return persona;
     }
 
 }

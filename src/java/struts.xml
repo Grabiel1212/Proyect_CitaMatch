@@ -6,6 +6,9 @@
 <struts>
     <!-- Configuration for the default package. -->
     <!-- Configuration for the default package. -->
+     
+    
+
     <package name="default" extends="struts-default">
        
         <action name="" class="com.opensymphony.xwork2.ActionSupport" method="execute">
@@ -13,7 +16,11 @@
         </action>
     </package>
     
+    
+    
     <package name="controllers" namespace="/" extends="struts-default">
+        
+        
         
         <action name="login" class="controllers.LoginController" method="execute">
             <result >views/login.jsp</result> 
@@ -52,6 +59,7 @@
     
         
         <action name="home" class="controllers.HomeController" method="ListarPerfiles">
+              
             <result name="success">/views/home.jsp</result>
             <result name="error">/views/login.jsp</result>
         </action>

@@ -32,7 +32,6 @@ public class HomeController extends ActionSupport {
 
     public String ListarPerfiles() throws Exception {
         try {
-
             String codLogin = (String) ActionContext.getContext().getSession().get("codLogin");
             System.out.println("Código verificado en home: " + codLogin);
 
@@ -41,20 +40,17 @@ public class HomeController extends ActionSupport {
                 System.out.println("Tamaño de la lista de perfiles: " + perfiles.size());
 
                 if (perfiles != null && !perfiles.isEmpty()) {
-                    // Asigna la lista de perfiles al contexto de la acción para accederla desde JSP
                     ActionContext.getContext().getSession().put("perfiles", perfiles);
                 }
+                return SUCCESS;
             } else {
-                System.out.println("El código de login es nulo");
+                addActionError("Debes iniciar sesión para acceder al home.");
+                return ERROR;  // Redirige al login si no está logueado
             }
-
-            return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    
-    
 
 }
