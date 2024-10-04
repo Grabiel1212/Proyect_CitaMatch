@@ -27,7 +27,7 @@
 
 
             <!-- Formulario de inicio de sesión -->
-            <s:form action="login" method="post">
+            <s:form action="Validando" method="post">
                 <div class="form-group input-box">
                     <label for="email">Email:</label>
                     <s:textfield name="email" cssClass="form-control" required="true" />

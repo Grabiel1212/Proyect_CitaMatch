@@ -96,6 +96,9 @@ public class RegistrationController extends ActionSupport implements ServletResp
                 return INPUT; // Regresar a la vista de entrada en caso de error
             }
 
+            
+            // Asignar género
+            String generex = bean.getGenero().equalsIgnoreCase("Masculino") ? "M" : "F";
             // Crear una nueva instancia de Persona y asignar los valores del bean
             dao = new Persona();
             dao.setEmail(bean.getEmail());
@@ -104,7 +107,7 @@ public class RegistrationController extends ActionSupport implements ServletResp
             dao.setNombre(bean.getNombre());
             dao.setApellido(bean.getApellido());
             dao.setFechaN(fecha);
-            dao.setGenero(bean.getGenero());
+            dao.setGenero(generex);
             dao.setFotoPerfil(fotoPerfil);
             dao.setFotoPortada(fotoPortada);
             dao.setUbicacion(bean.getUbicacion());

@@ -16,10 +16,15 @@
     <package name="controllers" namespace="/" extends="struts-default">
         
         <action name="login" class="controllers.LoginController" method="execute">
+            <result >views/login.jsp</result> 
+           </action>
+        
+         <action name="Validando" class="controllers.LoginController" method="Validar">
             <result name="success">views/home.jsp</result> <!-- Asegúrate de que esta vista exista -->
             <result name="home" type="redirectAction">home</result> <!-- Redirige a 'home' -->
             <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
         </action>
+        
         
         
         
