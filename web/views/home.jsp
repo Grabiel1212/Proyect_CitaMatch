@@ -12,6 +12,57 @@
     <title>Perfiles - CitaMatch</title>
 </head>
 <body>
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="assets/styles/tinder-logo.jpg" alt="logo">
+                </span>
+                <div class="text header-text">
+                    <span class='name'>CodingLab</span> 
+                    <span class="profession">web developer</span>
+                </div>
+            </div>
+            <img src="${pageContext.request.contextPath}/assets/styles/boxicons.min.png" class="bx-fade-right toogle" style="width: 50px; height: 50px;" alt="Icono" />
+        </header>
+        <div class='menu-bar'>
+            <div class='menu'>
+                <ul class='menu-links'>
+                    <li class="nav-link">
+                       <a href='#'>
+                         <img src="${pageContext.request.contextPath}/assets/styles/inicio.png" class="icon">
+                         <span class='text nav-text'>INICIO</span>
+                       </a>
+                    </li>
+                    <li class="nav-link">
+                         <a href='#'>
+                         <img src="${pageContext.request.contextPath}/assets/styles/PERFIL.png" class="icon">
+                         <span class='text nav-text'>PERFIL</span>
+                       </a>
+                    </li>
+                    <li class="nav-link">
+                         <a href='#'>
+                         <img src="${pageContext.request.contextPath}/assets/styles/CONTACTO.png" class="icon">
+                         <span class='text nav-text'>CONTACTO</span>
+                       </a>
+                    </li>
+                    <li class="nav-link">
+                         <a href='#'>
+                         <img src="${pageContext.request.contextPath}/assets/styles/NOTIFICACION.png" class="icon">
+                         <span class='text nav-text'>NOTIFICACION</span>
+                       </a>
+                    </li>
+                    <li class="nav-link">
+                         <a href='#'>
+                         <img src="${pageContext.request.contextPath}/assets/styles/LIKES.png" class="icon">
+                         <span class='text nav-text'>MENSAJES</span>
+                       </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </nav>
     <div class="shadow">
         <main>
             <section>
