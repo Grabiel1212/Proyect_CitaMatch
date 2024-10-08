@@ -24,9 +24,9 @@
         
         <action name="login" class="controllers.LoginController" method="execute">
             <result >views/login.jsp</result> 
-           </action>
+        </action>
         
-         <action name="Validando" class="controllers.LoginController" method="Validar">
+        <action name="Validando" class="controllers.LoginController" method="Validar">
             <result name="success">views/home.jsp</result> <!-- Asegúrate de que esta vista exista -->
             <result name="home" type="redirectAction">home</result> <!-- Redirige a 'home' -->
             <result name="error" type="dispatcher">views/login.jsp</result> <!-- Redirige a Login en caso de error -->
@@ -53,8 +53,7 @@
             <result name="input">views/registrase.jsp</result>
             <result name="denegado">views/registrase.jsp</result>
         </action>
-        
-        
+       
     
     
         
@@ -64,24 +63,68 @@
             <result name="error">/views/login.jsp</result>
         </action>
         
-<!--        <action name="ListarPerfil" class="controllers.HomeController" method="ListarPerfiles">
-            <result name="success">/views/home.jsp</result>
-            <result name="error">/views/error.jsp</result>
-        </action>-->
 
-          
-        <action name="contacto" class="controllers.ContactoControllers" method="execute">
-            <result>views/contacto.jsp</result>
+        
+        <action name="darLike" class="controllers.HomeController" method="DarLike">
+            <result name="success">/views/home.jsp</result>
+            <result name="error">/views/login.jsp</result>
+        </action>
+
+       
+       
+        <action name="notificaciones" class="controllers.NotificacionController" method="ListarNotificaciones">
+            <result name="success">/views/notificaciones.jsp</result> <!-- Vista para listar notificaciones -->
+            <result name="error">/views/login.jsp</result> <!-- Vista de error o login -->
+        </action>
+
+        <action name="aceptar" class="controllers.NotificacionController" method="AceptarLike">
+            <result name="success" type="redirectAction">notificaciones</result> <!-- Redirige a la acción 'notificaciones' -->
+            <result name="error">/views/home.jsp</result> <!-- Vista de error -->
         </action>
         
+          <action name="aceptar2" class="controllers.NotificacionController" method="AceptarLike2">
+            <result name="success" type="redirectAction">notificaciones</result> <!-- Redirige a la acción 'notificaciones' -->
+            <result name="error">/views/home.jsp</result> <!-- Vista de error -->
+        </action>
+
+
+
+        <action name="rechazar" class="controllers.NotificacionController" method="RechazarLike">
+            <result name="success" type="redirectAction">notificaciones</result> <!-- Redirige a la acción 'notificaciones' -->
+            <result name="error">/views/home.jsp</result> <!-- Vista de error -->
+        </action>
         
+         <action name="canselar" class="controllers.NotificacionController" method="CancelarLike">
+            <result name="success" type="redirectAction">megustaenviado</result> <!-- Redirige a la acción 'notificaciones' -->
+            <result name="error">/views/home.jsp</result> <!-- Vista de error -->
+        </action>
+
+
+
+        <action name="megustaenviado" class="controllers.NotificacionController" method="listamegustaenviados">
+            <result name="success">/views/megustaenviados.jsp</result> <!-- Vista para listar notificaciones -->
+            <result name="error">/views/login.jsp</result> <!-- Vista de error o login -->
+        </action>
+
+        <action name="megustarechazado" class="controllers.NotificacionController" method="listamegustarechazaos">
+            <result name="success">/views/megustarechazado.jsp</result> <!-- Vista para listar notificaciones -->
+            <result name="error">/views/login.jsp</result> <!-- Vista de error o login -->
+        </action>
+
+
+        <action name="perfil" class="back.pruebas.PerfilAction">
+            <result>views/perfil.jsp</result>
+        </action>
         
-        
-             
-             
-             
-             
-        
-      
+       <action name="perfilPersona" class="controllers.PerfilesController" method="MostrarPerfilPersona">
+    <result name="success">/views/perfilpersonas.jsp</result>
+    <result name="error">/views/login.jsp</result>
+</action>
+
+<action name="perfil" class="controllers.PerfilesController" method="MostrarPerfilLogeado">
+    <result name="success">/views/perfil.jsp</result>
+    <result name="error">/views/login.jsp</result>
+</action>
+
     </package>
 </struts>

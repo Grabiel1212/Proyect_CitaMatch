@@ -33,15 +33,16 @@ public class PersonaBeans {
    private String genero;
    private String fotoPerfil;
    private String fotoPortada;
-   private byte[] foto1;
-   private byte[] foto2;
-   private byte[] foto3;
+   private String foto1;
+   private String foto2;
+   private String foto3;
    private String ubicacion;
    private  String intereses;
    private String descripcion;
    
    private int CodigoVeri;
    private int CodigoR;
+   private int cantidadMegusta;
 
 
 

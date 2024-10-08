@@ -38,9 +38,16 @@ public interface PersonaServiceImp {
 
     public void CanselarMegusta(String codSoli, String codResep);
 
-   
     public void AseptarMegusta(String codSoli, String codResep);
 
     public void RechazarMegusta(String codSoli, String codResep);
+
+    public int CantidadMegusta(String cod);
+
+    public List<Persona> obtenerUsuariosQueEnvianMeGusta(String cod);
+
+    public List<Persona> obtenerListamegustaenviados(String cod);
+
+    public List<Persona> obtenerListamegustarechazados(String cod);
 
 }

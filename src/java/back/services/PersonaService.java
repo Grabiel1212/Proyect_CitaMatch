@@ -124,4 +124,26 @@ public class PersonaService implements PersonaServiceImp {
       megustadao.RechazarMegusta(codSoli, codResep);
     }
 
+    @Override
+    public int CantidadMegusta(String cod) {
+       int  cantidad = megustadao.CantidadMegusta(cod);
+       return cantidad;
+    }
+
+    @Override
+    public List<Persona> obtenerUsuariosQueEnvianMeGusta(String cod) {
+          return megustadao.obtenerUsuariosQueEnvianMeGusta(cod);
+        
+    }
+
+    @Override
+    public List<Persona> obtenerListamegustaenviados(String cod) {
+          return megustadao.obtenerListamegustaenviados(cod);
+    }
+
+    @Override
+    public List<Persona> obtenerListamegustarechazados(String cod) {
+          return megustadao.obtenerListamegustarechazados(cod);
+    }
+
 }
