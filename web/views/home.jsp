@@ -279,9 +279,12 @@
             const profile = profiles[currentIndex - 1]; // Usa el índice anterior ya que lo incrementamos después de cargar el perfil
 
             if (!profile || !profile.id) {
-            console.error("El perfil es nulo o no tiene un ID válido.");
+            console.error("El perfil es nulo o no tiene un ID válidoS.");
             return;
             }
+            
+            
+            
 
             console.log("ID del perfil dado like:", profile.id);
             const params = new URLSearchParams();
