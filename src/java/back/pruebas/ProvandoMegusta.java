@@ -57,7 +57,8 @@ public class ProvandoMegusta {
 
   //  dao.obtenerListamegustaenviados("US001").forEach(System.out::println);
   
-   dao.obtenerListamegustarechazados("US031").forEach(System.out::println);
+  //o.obtenerListamegustarechazados("US031").forEach(System.out::println);
+        System.out.println("ola xd ");
        
         
      
